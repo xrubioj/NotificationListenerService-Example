@@ -39,3 +39,4 @@ captures/
 # Keystore files
 # Disabled to allow example keystore included in the project
 #*.jks
+.idea
