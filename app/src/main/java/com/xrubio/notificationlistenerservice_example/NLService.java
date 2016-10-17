@@ -47,7 +47,7 @@ public class NLService extends NotificationListenerService {
         Log.i(TAG,"ID :" + sbn.getId() + "\t" + sbn.getNotification().tickerText + "\t" + sbn.getPackageName());
 
         // Test: cancel all notifications as soon as we know about them
-        cancelAllNotifications();
+        //cancelAllNotifications();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class NLService extends NotificationListenerService {
         sendBroadcast(i);
 
         // Test: cancel all notifications as soon as we know about them
-        cancelAllNotifications();
+        //cancelAllNotifications();
     }
 
     @Override

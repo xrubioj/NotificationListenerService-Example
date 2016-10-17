@@ -18,6 +18,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create HUD Notification"
+        android:id="@+id/btnCreateNotifyHUD"
+        android:onClick="buttonClicked"
+        android:layout_below="@+id/btnCreateNotify"
+        android:layout_alignLeft="@+id/btnCreateNotify"
+        android:layout_alignRight="@+id/btnCreateNotify"/>
+
 
 
     <Button
@@ -26,16 +36,16 @@
         android:text="Clear All Notification"
         android:id="@+id/btnClearNotify"
         android:onClick="buttonClicked"
-        android:layout_below="@+id/btnCreateNotify"
-        android:layout_alignLeft="@+id/btnCreateNotify"
-        android:layout_alignRight="@+id/btnCreateNotify"/>
+        android:layout_below="@+id/btnCreateNotifyHUD"
+        android:layout_alignLeft="@+id/btnCreateNotifyHUD"
+        android:layout_alignRight="@+id/btnCreateNotifyHUD"/>
 
     <ScrollView android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/btnListNotify"
-                android:layout_below="@+id/btnListNotify"
-                android:layout_alignLeft="@+id/btnListNotify">
+                android:layout_alignRight="@+id/btnBlockNotificationsMarshmallow"
+                android:layout_below="@+id/btnBlockNotificationsMarshmallow"
+                android:layout_alignLeft="@+id/btnBlockNotificationsMarshmallow">
 
         <TextView
             android:layout_width="match_parent"
@@ -57,4 +67,14 @@
         android:layout_below="@+id/btnClearNotify"
         android:layout_alignLeft="@+id/btnClearNotify"
         android:layout_alignRight="@+id/btnClearNotify"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Block notifications (Marshmallow)"
+        android:id="@+id/btnBlockNotificationsMarshmallow"
+        android:onClick="buttonClicked"
+        android:layout_below="@+id/btnListNotify"
+        android:layout_alignLeft="@+id/btnListNotify"
+        android:layout_alignRight="@+id/btnListNotify"/>
 </RelativeLayout>

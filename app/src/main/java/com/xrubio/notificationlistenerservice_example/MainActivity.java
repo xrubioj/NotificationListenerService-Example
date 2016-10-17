@@ -1,5 +1,6 @@
 package com.xrubio.notificationlistenerservice_example;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.TextView;
+
+import static android.app.NotificationManager.INTERRUPTION_FILTER_NONE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,12 +34,6 @@ public class MainActivity extends AppCompatActivity {
         // https://stackoverflow.com/questions/17911883/cannot-get-the-notificationlistenerservice-class-to-work/37081128#37081128
         //startService(new Intent(this, NLService.class));
 
-        // This requires API 23: disable notifications
-        /*
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.setInterruptionFilter(INTERRUPTION_FILTER_NONE);
-        */
-
     }
 
     @Override
@@ -52,12 +49,24 @@ public class MainActivity extends AppCompatActivity {
         if(v.getId() == R.id.btnCreateNotify){
             NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             NotificationCompat.Builder ncomp = new NotificationCompat.Builder(this);
-            ncomp.setContentTitle("My Notification");
-            ncomp.setContentText("Notification Listener Service Example");
-            ncomp.setTicker("Notification Listener Service Example");
-            ncomp.setSmallIcon(R.mipmap.ic_launcher);
-            ncomp.setAutoCancel(true);
-            nManager.notify((int)System.currentTimeMillis(),ncomp.build());
+            ncomp.setContentTitle("My Regular Notification")
+                    .setContentText("Notification Listener Service Example")
+                    .setTicker("Notification Listener Service Example")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setAutoCancel(true);
+            nManager.notify((int)System.currentTimeMillis(), ncomp.build());
+        }
+        else if (v.getId() == R.id.btnCreateNotifyHUD) {
+            NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationCompat.Builder ncomp = new NotificationCompat.Builder(this);
+            ncomp.setContentTitle("My HUD Notification")
+                    .setContentText("Notification Listener Service Example")
+                    .setTicker("Notification Listener Service Example")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setAutoCancel(true)
+                    .setPriority(Notification.PRIORITY_MAX)
+                    .setVibrate(new long[0]);
+            nManager.notify((int)System.currentTimeMillis(), ncomp.build());
         }
         else if(v.getId() == R.id.btnClearNotify){
             Intent i = new Intent("com.xrubio.notificationlistenerservice_example.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
@@ -68,6 +77,16 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent("com.xrubio.notificationlistenerservice_example.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
             i.putExtra("command","list");
             sendBroadcast(i);
+        }
+        else if (v.getId() == R.id.btnBlockNotificationsMarshmallow) {
+            // This requires API 23: disable notifications.
+            // Important: setInterruptionFilter() must be called *after* setNotificationPolicy()
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.setNotificationPolicy(
+                    new NotificationManager.Policy(NotificationManager.Policy.PRIORITY_CATEGORY_REPEAT_CALLERS,
+                            NotificationManager.Policy.PRIORITY_SENDERS_STARRED,
+                            NotificationManager.Policy.PRIORITY_SENDERS_STARRED));
+            notificationManager.setInterruptionFilter(INTERRUPTION_FILTER_NONE);
         }
 
 
